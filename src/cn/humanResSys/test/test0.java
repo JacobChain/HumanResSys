@@ -14,6 +14,8 @@ import cn.humanResSys.pojo.Salary;
 import cn.humanResSys.pojo.Training;
 
 import cn.humanResSys.pojo.User;
+import cn.humanResSys.service.user.UserService;
+
  
 public class test0 {
 	public static Logger logger=Logger.getLogger(test0.class);
@@ -32,7 +34,10 @@ public class test0 {
 	public void test2(){
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
 		TrainMapper us = (TrainMapper)context.getBean("trainMapper");
-
+		List<Training> trainList = us.getlistTrain();
+		for(Training train:trainList){
+			logger.info("姓名"+train.getTrainname()+train.getTrainteacher());
+		}
 	
 	}
 
