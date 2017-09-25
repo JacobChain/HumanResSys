@@ -1,0 +1,13 @@
+package cn.humanResSys.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import cn.humanResSys.pojo.User;
+
+public interface UserMapper {
+	public List<User> getUserList(@Param("userName")String userName,@Param("userId")int userId,@Param("departmentId")int departmentId,@Param("pageNo")int pageNo);
+	
+
+}

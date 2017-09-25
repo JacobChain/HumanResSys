@@ -1,0 +1,165 @@
+package cn.humanResSys.pojo;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
+public class InterviewResults {
+    private Long id;
+
+    private String oneinterviewer;
+
+    @JSONField(format="yyyy-MM-dd hh:mm:ss")
+   	@DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    private Date oneinterviewtime;
+
+    private String oneinterviewevaluation;
+
+    private String twointerviewer;
+
+    @JSONField(format="yyyy-MM-dd hh:mm:ss")
+   	@DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    private Date twointerviewtime;
+
+    private String twointerviewevaluation;
+
+    private String threeinterviewer;
+
+    @JSONField(format="yyyy-MM-dd hh:mm:ss")
+   	@DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    private Date threeinterviewtime;
+
+    private String threeinterviewevaluation;
+
+    @JSONField(format="yyyy-MM-dd hh:mm:ss")
+   	@DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    private Date resolutiontime;
+
+    private String finallresolution;
+
+    private Long resumeid;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getOneinterviewer() {
+        return oneinterviewer;
+    }
+
+    public void setOneinterviewer(String oneinterviewer) {
+        this.oneinterviewer = oneinterviewer == null ? null : oneinterviewer.trim();
+    }
+
+    public String getOneinterviewtime() {
+    	DateFormat df= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		if(oneinterviewtime!=null)
+			return df.format(oneinterviewtime);
+			else
+				return "";
+    }
+
+    public void setOneinterviewtime(Date oneinterviewtime) {
+        this.oneinterviewtime = oneinterviewtime;
+    }
+
+    public String getOneinterviewevaluation() {
+        return oneinterviewevaluation;
+    }
+
+    public void setOneinterviewevaluation(String oneinterviewevaluation) {
+        this.oneinterviewevaluation = oneinterviewevaluation == null ? null : oneinterviewevaluation.trim();
+    }
+
+    public String getTwointerviewer() {
+        return twointerviewer;
+    }
+
+    public void setTwointerviewer(String twointerviewer) {
+        this.twointerviewer = twointerviewer == null ? null : twointerviewer.trim();
+    }
+
+    public String getTwointerviewtime() {
+    	DateFormat df= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		if(twointerviewtime!=null)
+			return df.format(twointerviewtime);
+			else
+				return "";
+    }
+
+    public void setTwointerviewtime(Date twointerviewtime) {
+        this.twointerviewtime = twointerviewtime;
+    }
+
+    public String getTwointerviewevaluation() {
+        return twointerviewevaluation;
+    }
+
+    public void setTwointerviewevaluation(String twointerviewevaluation) {
+        this.twointerviewevaluation = twointerviewevaluation == null ? null : twointerviewevaluation.trim();
+    }
+
+    public String getThreeinterviewer() {
+        return threeinterviewer;
+    }
+
+    public void setThreeinterviewer(String threeinterviewer) {
+        this.threeinterviewer = threeinterviewer == null ? null : threeinterviewer.trim();
+    }
+
+    public String getThreeinterviewtime() {
+    	DateFormat df= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		if(threeinterviewtime!=null)
+			return df.format(threeinterviewtime);
+			else
+				return "";
+    }
+
+    public void setThreeinterviewtime(Date threeinterviewtime) {
+        this.threeinterviewtime = threeinterviewtime;
+    }
+
+    public String getThreeinterviewevaluation() {
+        return threeinterviewevaluation;
+    }
+
+    public void setThreeinterviewevaluation(String threeinterviewevaluation) {
+        this.threeinterviewevaluation = threeinterviewevaluation == null ? null : threeinterviewevaluation.trim();
+    }
+
+    public String getResolutiontime() {
+    	DateFormat df= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		if(resolutiontime!=null)
+			return df.format(resolutiontime);
+			else
+				return "";
+    }
+
+    public void setResolutiontime(Date resolutiontime) {
+        this.resolutiontime = resolutiontime;
+    }
+
+    public String getFinallresolution() {
+        return finallresolution;
+    }
+
+    public void setFinallresolution(String finallresolution) {
+        this.finallresolution = finallresolution == null ? null : finallresolution.trim();
+    }
+
+    public Long getResumeid() {
+        return resumeid;
+    }
+
+    public void setResumeid(Long resumeid) {
+        this.resumeid = resumeid;
+    }
+}

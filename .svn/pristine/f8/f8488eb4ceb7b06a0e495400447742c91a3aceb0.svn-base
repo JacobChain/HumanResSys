@@ -1,0 +1,145 @@
+package cn.humanResSys.controller;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import cn.humanResSys.pojo.Offer;
+import cn.humanResSys.service.zhaopin.ZhaoPinService;
+import cn.humanResSys.utils.PageSupport;
+
+
+
+@Controller
+public class ZhaoPinController {
+	@Resource
+	private ZhaoPinService zhaoPinService;
+	
+	@RequestMapping("zhaoPinList.html")
+	public String zhaoPinList(){
+		
+		return "zhaoPinList" ;
+	}
+	
+	@RequestMapping("zhaoPinList")
+	public String zhaoPinList(Model model,
+			@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "jobname", required = false) String jobname,
+			@RequestParam(value = "jobcategory", required = false) String jobcategory,
+			@RequestParam(value = "creationdate", required = false) String creationdate,
+			@RequestParam(value = "endtime", required = false) String endtime,
+			@RequestParam(value = "pageIndex", required = false) String pageIndex){
+		System.out.println("getemaillist");
+		List<Offer> offerList=null; 
+		int pageSize = 10;
+		int currentPageNo = 1;
+		if(jobname == null){
+			jobname = "";
+		}
+		if(jobcategory == null){
+			jobcategory = "";
+		}
+		if(creationdate == null){
+			creationdate = "";
+		}
+		if(endtime == null){
+			endtime = "";
+		}
+		if(pageIndex != null){
+    		try{
+    			currentPageNo = Integer.valueOf(pageIndex);
+    		}catch(NumberFormatException e){
+    			return "syserror";
+    		}
+    	}
+		int totalCount=zhaoPinService.getOfferCount(Integer.getInteger(id),jobname, jobcategory, creationdate, endtime);
+		System.out.println("======================"+totalCount);
+		PageSupport pages=new PageSupport();
+    	pages.setCurrentPageNo(currentPageNo);
+    	pages.setPageSize(pageSize);
+    	pages.setTotalCount(totalCount);
+    	int totalPageCount = pages.getTotalPageCount();
+    	if(currentPageNo < 1){
+    		currentPageNo = 1;
+    	}else if(currentPageNo > totalPageCount){
+    		currentPageNo = totalPageCount;
+    	}
+    	offerList=zhaoPinService.getOfferList(Integer.getInteger(id),jobname, jobcategory, creationdate, endtime, currentPageNo, pageSize);
+    	model.addAttribute("offerList", offerList);
+		model.addAttribute("jobname", jobname);
+		model.addAttribute("jobcategory", jobcategory);
+		model.addAttribute("creationdate", creationdate);
+		model.addAttribute("endtime", endtime);
+		model.addAttribute("totalPageCount", totalPageCount);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("currentPageNo", currentPageNo);
+		
+		return "zhaoPinList";
+	}
+	
+	@RequestMapping(value="addZhaoPin.html",method=RequestMethod.GET)
+	public String addZhaoPin(@ModelAttribute("offer") Offer offer){
+		
+		return "addZhaoPin";
+	}
+	
+	@RequestMapping(value="addZhaoPin")
+	public String addZhaoPin(Offer offer,HttpSession session){
+		
+		if(zhaoPinService.addOffer(offer)>0){
+			return "redirect:zhaoPinList.html"; 
+		}
+		return "addZhaoPin";
+		
+	}
+	
+	@RequestMapping("updateZhaoPin.html")
+	public String enterupdateOffer(@RequestParam("id")String id,Model m){
+		m.addAttribute("offer", id);
+		return "UpdateZhaoPin";
+	}
+	
+	@RequestMapping(value ="updateZhaoPin",method = RequestMethod.POST)
+	public String doUpdateOffer(Offer offer, HttpSession session){
+		
+		
+		int res = zhaoPinService.updateOffer(offer);
+		if (res > 0) {
+			return "redirect:updateZhaoPin.html";
+		}
+
+		return "UpdateZhaoPin";
+	}
+	
+	@RequestMapping(value="delZhaoPin" )
+	public String delOffer(@RequestParam("id")String id){
+		int num=zhaoPinService.delOfferById(Integer.getInteger(id));
+		if(num>0){
+			return "redirect:zhaoPinList.html";
+		}else{
+		    return 	"syserror";
+		}
+			
+	}
+	
+	@RequestMapping(value = "zhaoPinView.html")
+	public String showapp(@RequestParam("id") String id, Model model) {
+		Offer offer=zhaoPinService.getOfferById(Integer.parseInt(id));
+		model.addAttribute("offer", offer);
+		
+		return "zhaoPinView";
+
+	}
+	
+
+
+}

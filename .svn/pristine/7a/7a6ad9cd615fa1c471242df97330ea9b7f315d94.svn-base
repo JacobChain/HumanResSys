@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.humanResSys.dao.salary.SalaryMapper">
+
+<select id="SearchSalaryList" resultMap="salaryList">
+	SELECT salary.`salaryCode`,salary.`salaryName`,dictionary.`typeName`,salary.`creationDate` 
+	FROM salary INNER JOIN dictionary ON salary.`creationDate`=dictionary.`creationDate`
+	<if test="salaryCode != null and salaryCode != ''">
+		and salary.salaryCode=#{salaryCode}
+	</if>
+	<if test="salaryName != null and salaryName != ''">
+		and salary.salaryName like CONCAT ('%',#{salaryName},'%') 
+	</if>
+	<if test="typeName != null and typeName != ''">
+		and dictionary.typeName=#{typeName}
+	</if>
+	<if test="creationDate != null and creationDate != ''">
+		and salary.creationDate=#{creationDate}
+	</if>
+	order by dictionary.creationDate DESC limit #{from},#{pageSize}
+</select>
+
+
+
+
+</mapper>

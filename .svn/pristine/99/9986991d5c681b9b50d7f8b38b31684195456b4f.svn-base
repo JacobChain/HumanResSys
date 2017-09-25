@@ -1,0 +1,194 @@
+package cn.humanResSys.pojo;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
+public class Offer {
+    private Long id;
+
+    private Long departmentstatus;
+
+    private Long offertype;
+
+    private Long hiringnumber;
+
+    private Long jobid;
+
+    private String description;
+
+    private String requirements;
+
+    private Long createdby;
+
+    @JSONField(format="yyyy-MM-dd ")
+   	@DateTimeFormat(pattern="yyyy-MM-dd ")
+    private Date creationdate;
+
+    private Long modifyby;
+
+    @JSONField(format="yyyy-MM-dd hh-mm-ss")
+   	@DateTimeFormat(pattern="yyyy-MM-dd hh-mm-ss")
+    private Date modifydate;
+
+    @JSONField(format="yyyy-MM-dd hh-mm-ss")
+   	@DateTimeFormat(pattern="yyyy-MM-dd hh-mm-ss")
+    private Date endtime;
+
+    private String remarks;
+    
+    /**
+     * @since 2017-9-19
+     * @author 方梓恒
+     * 增加页面遍历所需实体类
+     * @return
+     */
+    private String jobcode;
+    private String jobname;
+    private String jobcategory;
+ 
+
+    public String getJobcode() {
+		return jobcode;
+	}
+
+	public void setJobcode(String jobcode) {
+		this.jobcode = jobcode;
+	}
+
+	public String getJobname() {
+		return jobname;
+	}
+
+	public void setJobname(String jobname) {
+		this.jobname = jobname;
+	}
+
+	public String getJobcategory() {
+		return jobcategory;
+	}
+
+	public void setJobcategory(String jobcategory) {
+		this.jobcategory = jobcategory;
+	}
+
+	public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getDepartmentstatus() {
+        return departmentstatus;
+    }
+
+    public void setDepartmentstatus(Long departmentstatus) {
+        this.departmentstatus = departmentstatus;
+    }
+
+    public Long getOfferType() {
+        return offertype;
+    }
+
+    public void setOfferType(Long offertype) {
+        this.offertype = offertype;
+    }
+
+    public Long getHiringnumber() {
+        return hiringnumber;
+    }
+
+    public void setHiringnumber(Long hiringnumber) {
+        this.hiringnumber = hiringnumber;
+    }
+
+    public Long getJobid() {
+        return jobid;
+    }
+
+    public void setJobid(Long jobid) {
+        this.jobid = jobid;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    public String getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(String requirements) {
+        this.requirements = requirements == null ? null : requirements.trim();
+    }
+
+    public Long getCreatedby() {
+        return createdby;
+    }
+
+    public void setCreatedby(Long createdby) {
+        this.createdby = createdby;
+    }
+
+    public String getCreationdate() {
+    	DateFormat df= new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
+		if(creationdate!=null)
+			return df.format(creationdate);
+			else
+				return "";
+    }
+
+    public void setCreationdate(Date creationdate) {
+        this.creationdate = creationdate;
+    }
+
+    public Long getModifyby() {
+        return modifyby;
+    }
+
+    public void setModifyby(Long modifyby) {
+        this.modifyby = modifyby;
+    }
+
+    public String getModifydate() {
+    	DateFormat df= new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
+		if(modifydate!=null)
+			return df.format(modifydate);
+			else
+				return "";
+    }
+
+    public void setModifydate(Date modifydate) {
+        this.modifydate = modifydate;
+    }
+
+    public String getEndtime() {
+    	DateFormat df= new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
+		if(endtime!=null)
+			return df.format(endtime);
+			else
+				return "";
+    }
+
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks == null ? null : remarks.trim();
+    }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.humanResSys.dao.train.TrainMapper">
+	<select id="getlistTrain" resultType="Training">
+	SELECT DISTINCT t.*,(SELECT valueName FROM dictionary d WHERE t.check_status=d.valueId AND d.typeCode='CHECK_STATUS') AS valuename,d.valueName AS valuenames  FROM training t
+INNER JOIN training_feedback f ON t.id=f.trainingID
+INNER JOIN dictionary d ON f.training_feedback=d.valueId
+WHERE d.typeCode='TRAIN_FEEDBACK'
+
+	</select>
+	
+</mapper>

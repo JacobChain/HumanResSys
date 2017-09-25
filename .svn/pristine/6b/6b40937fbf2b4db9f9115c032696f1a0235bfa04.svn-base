@@ -1,0 +1,66 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/jsp/common/header.jsp" %>
+	
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css">
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css">
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css">
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin">
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css">
+<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<section>
+  <div class="text-c"> 查询条件：<br/>
+         用户名称：<input type="text" style="">	
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        Dropdown
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+      </ul>
+    </div>
+  </div>
+  
+
+     <table class="table table-border table-bordered table-hover table-bg table-sort"  >
+    <thead>
+      <tr >
+        <th width="50"><input type="checkbox" name="" value=""></th>
+        <th width="160">用户编码</th>
+        <th width="150">用户名称</th>
+        <th width="160">用户角色</th>
+        <th width="120">所属部门</th>
+        <th width="100">操作</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr>
+        <td><input type="checkbox" value="1" name=""></td>
+        <td>${user.usercode }</td>    
+        <td>${user.username }</td>
+        <td>${user.userrole }</td>
+        <td>${user.department }</td>
+        <td> <a>删除</a> <a>编辑</a> <a>添加</a> <td>
+      </tr>
+    </tbody>
+  </table>
+    
+
+  
+  
+  
+  </section>
+  
+  
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+  
+  
+<%@include file="/WEB-INF/jsp/common/footer.jsp"%>

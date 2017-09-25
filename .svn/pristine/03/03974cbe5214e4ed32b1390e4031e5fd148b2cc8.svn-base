@@ -1,0 +1,29 @@
+package cn.humanResSys.controller;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import cn.humanResSys.pojo.Training;
+import cn.humanResSys.service.train.TrainService;
+@Controller
+@RequestMapping(value="/train")
+public class TrainController {
+	@Resource
+	private TrainService trainService;
+	@RequestMapping(value="/trainList")
+	public String trainLiat(Model model){
+		List<Training> training=trainService.getlistTrain();
+		model.addAttribute("training",training);
+		
+		return "trainList";
+	}
+
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.humanResSys.dao.UserMapper">
+<select id="getUserList"  resultType="user" parameterType="map">
+SELECT *,r.`roleName`AS userrole,d.`valueName` AS departmentname FROM `user` u 
+LEFT JOIN role r ON u.roleid=r.`id`
+LEFT JOIN dictionary d ON u.`departmentId`=d.`valueId` WHERE d.`typeCode`='DEPARTMENT'
+
+    <if test="userName !=null and userName !=''">
+	  and u.username=#{userName}
+	  </if>
+	  <if test="userId !=null and userId !=0 ">
+	  and u.userid=#{userId}
+	  </if>
+	    <if test="departmentId !=null and departmentId !=0 ">
+	  and u.departmentid=#{departmentId}
+	  </if>
+	  
+	 
+</select>
+
+
+
+
+
+
+
+</mapper>

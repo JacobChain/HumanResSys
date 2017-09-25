@@ -1,0 +1,15 @@
+package cn.humanResSys.service.user;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import cn.humanResSys.pojo.User;
+
+public interface UserService {
+	public List<User> getUserList(String userName,long userId,long departmentId,int pageNo,int pageSize);
+	
+	public int getAmountCount(String userName,long userId,long departmentId);
+	
+	public boolean login(String userCode,String userPassword);
+}

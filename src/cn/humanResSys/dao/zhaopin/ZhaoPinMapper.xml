@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.humanResSys.dao.zhaopin.ZhaoPinMapper">
+  <insert id="addOffer" parameterType="Offer">
+	  insert into offer (id,departmentstatus,offer_type,hiringnumber,jobid,description,requirements,createdby,
+	                creationdate,modifyby,modifydate,endtime,remarks) 
+					values(#{id},#{departmentstatus},#{offertype},
+					#{hiringnumber},#{jobid},#{description},#{requirements},
+					#{createdby},#{creationdate},#{modifyby},#{modifydate},#{endtime},#{remarks})
+  </insert>
+  
+  <update id="updateOffer"  parameterType="Offer">
+	  update offer 
+	  <trim prefix="set" suffixOverrides="," suffix="where id=#{id} ">
+	    <if test="offerType !=null and offerType !=0 ">offerType=#{offerType},</if>
+	    <if test="hiringnumber !=null and hiringnumber !=0 ">hiringnumber=#{hiringnumber},</if>
+	    <if test="endtime !=null and endtime !='' ">endtime=#{endtime},</if>
+	    <if test="description !=null and description !='' ">description=#{description},</if>
+	    <if test="requirements !=null and requirements !='' ">requirements=#{requirements},</if>
+	  </trim>
+  </update>
+  
+  <delete id="delOfferById" parameterType="Integer">
+	  delete from offer where id=#{id}
+  </delete>
+  
+  <select id="getOfferList" resultType="Offer" >
+	  SELECT o.id,j.jobCode,j.jobName,j.jobCategory,d.valueName AS department,
+      o.hiringNumber,o.creationDate,o.endTime
+      FROM offer o
+      INNER JOIN job j ON j.id=o.jobId
+      INNER JOIN dictionary d ON d.valueId=j.departmentStatus
+      WHERE d.typeCode='DEPARTMENT'
+     
+	 <if test="jobname !=null and jobname !='' ">
+	  and j.jobname like CONCAT ("%",#{jobname},"%")
+	  </if>
+	  <if test="jobcategory !=null and jobcategory !='' ">
+	  and j.jobcategory=#{jobcategory}
+	  </if>
+	  <if test="creationdate !=null and creationdate !='' ">
+	  and o.creationdate=#{creationdate}
+	  </if>
+	  <if test="endtime !=null and endtime !='' ">
+	  and o.endtime=#{endtime}
+	  </if>
+	    order by o.creationdate DESC
+  </select>
+  
+  <select id="getOfferCount" resultType="int">
+      SELECT COUNT(1) 
+      FROM offer o
+      INNER JOIN job j ON j.id=o.jobId
+      INNER JOIN dictionary d ON d.valueId=j.departmentStatus
+      WHERE d.typeCode='DEPARTMENT'
+      
+   
+	 <if test="jobname !=null and jobname !='' ">
+	  and j.jobname like CONCAT ("%",#{jobname},"%")
+	  </if>
+	  <if test="jobcategory !=null and jobcategory !='' ">
+	  and j.jobcategory=#{jobcategory}
+	  </if>
+	  <if test="creationdate !=null and creationdate !='' ">
+	  and o.creationdate=#{creationdate}
+	  </if>
+	  <if test="endtime !=null and endtime !='' ">
+	  and o.endtime=#{endtime}
+	  </if>
+    
+  </select>
+  
+  <select id="getOfferById" resultType="Offer" >
+	   SELECT o.id,j.jobCode,j.jobName,j.jobCategory,d.valueName AS department,
+      o.hiringNumber,o.creationDate,o.endTime
+      FROM offer o
+      INNER JOIN job j ON j.id=o.jobId
+      INNER JOIN dictionary d ON d.valueId=j.departmentStatus
+      WHERE d.typeCode='DEPARTMENT' AND o.id=#{id}
+	
+  </select>
+
+
+</mapper>

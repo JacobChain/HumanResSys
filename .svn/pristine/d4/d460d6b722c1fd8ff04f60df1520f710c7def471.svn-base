@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.humanResSys.dao.user.UserMapper">
+<select id="getUserList"  resultType="user" parameterType="map">
+SELECT *,r.`roleName`AS userrole,d.`valueName` AS departmentname FROM `user` u 
+LEFT JOIN role r ON u.roleid=r.`id`
+LEFT JOIN dictionary d ON u.`departmentId`=d.`valueId` WHERE d.`typeCode`='DEPARTMENT'
+
+    <if test="username !=null and username !=''">
+	  and u.username=#{username}
+	  </if>
+	  <if test="userid !=null and userid !=0 ">
+	  and u.userid=#{userid}
+	  </if>
+	    <if test="departmentid !=null and departmentid !=0 ">
+	  and u.departmentid=#{departmentid}
+	  </if>
+	   Order by u.`creationdate` limit #{pageIndex},#{pageSize}
+</select>
+
+<select id="getTotalCount" resultType="int" parameterType="map">
+SELECT count(1) FROM `user` u 
+LEFT JOIN role r ON u.roleid=r.`id`
+LEFT JOIN dictionary d ON u.`departmentId`=d.`valueId` WHERE d.`typeCode`='DEPARTMENT'
+
+    <if test="username !=null and username !=''">
+	  and u.username=#{username}
+	  </if>
+	  <if test="userid !=null and userid !=0 ">
+	  and u.userid=#{userid}
+	  </if>
+	    <if test="departmentid !=null and departmentid !=0 ">
+	  and u.departmentid=#{departmentid}
+	  </if>
+</select>
+<insert id="addUser"  parameterType="user" >
+insert into user(usercode,username,userpassword,departmentid,roleid,createdby,
+creationdate,modifyby,modifydate,remarks)values(#{usercode},#{username},#{userpassword},
+#{departmentid},#{roleid},#{createdby},#{creationdate},#{modifyby},#{modifydate},#{remarks})
+
+</insert>
+
+<update id="modifyUser" parameterType="user"  >
+	update user
+	<trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+		<if test="usercode!=null and usercode!=''">usercode=#{usercode},</if>
+		<if test="username!=null and username!=''">username=#{username},</if>
+		<if test="userpassword!=null  and userpassword!=''">userpassword=#{userpassword},</if>
+		<if test="departmentid!=null and departmentid!=0">departmentid=#{departmentid},</if>
+		<if test="roleid!=null and roleid!=''">roleid=#{roleid},</if>
+		<if test="createdby!=null and createdby!=0">createdby=#{createdby},</if>
+		<if test="creationdate!=null and creationdate!=''">creationdate=#{creationdate},</if>
+		<if test="modifyby!=null and modifyby!=0">modifyby=#{modifyby},</if>
+		<if test="modifydate!=null and modifydate!=''">modifydate=#{modifydate},</if>
+		<if test="remarks!=null and remarks!=''">remarks=#{remarks},</if>
+	</trim>
+</update>
+
+<delete id="delUser" parameterType="int" >
+	delete from user where id=#{id}
+
+</delete>
+
+<select id="getUserByCode" parameterType="string" resultType="user">
+	select * from user where usercode=#{usercode}
+
+</select>
+
+
+
+
+
+
+</mapper>

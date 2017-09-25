@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.humanResSys.dao.train.TrainMapper">
+	<select id="getlistTrain" resultType="Training" parameterType="Integer">
+	SELECT DISTINCT t.*,(SELECT valueName FROM dictionary d WHERE t.check_status=d.valueId AND d.typeCode='CHECK_STATUS') AS valuename,d.valueName AS valuenames  FROM training t
+INNER JOIN training_feedback f ON t.id=f.trainingID
+INNER JOIN dictionary d ON f.training_feedback=d.valueId
+WHERE d.typeCode='TRAIN_FEEDBACK' limit #{currentPageNo},#{pageSize}
+	</select>
+	<select id="getTrainCount" resultType="Integer">
+	SELECT DISTINCT COUNT(*) FROM training t 
+INNER JOIN training_feedback f ON t.id=f.trainingID
+INNER JOIN dictionary d ON f.training_feedback=d.valueId
+WHERE d.typeCode='TRAIN_FEEDBACK' 
+	</select>
+	
+	<select id="getTrainDetail" resultType="Training" parameterType="Integer">
+	SELECT * FROM training WHERE id=#{id}
+	</select>
+	
+	<update id="updateTrain" parameterType="Training">
+	update training set 
+	<if test="trainname!=null">
+	trainName=#{trainname},
+	</if>
+	<if test="trainteacher!=null">
+	trainTeacher=#{trainteacher},
+	</if>
+	<!-- <if test="starttime!=null">
+	startTime=#{starttime},
+	</if>
+	<if test="endtime!=null">
+	endTime=#{endtime},
+	</if> -->
+	<if test="trainpurpose!=null">
+	trainPurpose=#{trainpurpose},
+	</if>
+	<if test="trainees!=null">
+	trainees=#{trainees},
+	</if>
+	<if test="description!=null">
+	description=#{description}
+	</if>
+	where id=#{id}
+	</update>
+	
+	<delete id="deleteTrain" parameterType="Long">
+	delete from training where id=#{id}
+	</delete>
+	<update id="getTraincheck" parameterType="Long">
+	UPDATE training SET check_status=3 WHERE id=#{id}
+	</update>
+	<select id="getTrainFeedBack"  parameterType="String">
+	SELECT valueId FROM dictionary WHERE valueName=#{valueName}
+	</select>
+	<insert id="getFeedBackTrain" parameterType="TrainingFeedback">
+	INSERT INTO training_feedback (summarize,trainResults) VALUES(#{summarize},#{trainresults})
+	</insert>
+</mapper>

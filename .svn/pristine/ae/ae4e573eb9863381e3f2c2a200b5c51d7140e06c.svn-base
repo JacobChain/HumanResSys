@@ -1,0 +1,14 @@
+package cn.humanResSys.service.xinchou;
+
+import java.util.Date;
+
+import java.util.List;
+
+import cn.humanResSys.pojo.Salary;
+
+public interface XinChouService {
+	public List<Salary> SearchXinChouList(String typeName,
+			Date creationDate,
+			Integer currentPageNo,
+			Integer pageSize);
+}

@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+encoding//WebRoot/WEB-INF/jsp/common/footer.jsp=UTF-8
+encoding//WebRoot/WEB-INF/jsp/login.jsp=UTF-8
+encoding//WebRoot/WEB-INF/jsp/userList.jsp=UTF-8
+encoding//src/cn/humanResSys/dao/salary/SalaryMapper.xml=UTF-8
+encoding/<project>=UTF-8

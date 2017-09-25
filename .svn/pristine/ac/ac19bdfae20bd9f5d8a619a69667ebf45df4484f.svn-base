@@ -1,0 +1,147 @@
+/**
+ * @author 陈应豪
+ * @since 2017-9-19
+ * 
+ */
+
+$ (document).ready (
+        function ()
+        {
+	        $ ("#datatable").dataTable ().fnDraw (true);
+	        function getapplist ()
+	        {
+		        $.ajax (
+		        {
+		            type : 'get',// 可选get
+		            url : 'getSampleList', // 获取数据地址
+		            data : {
+		            // 输入参数，以json的格式传输
+		            },
+		            dataType : 'json',// 服务器返回的数据类型 可选XML ,Json jsonp
+		            // script
+		            // htmltext等
+		            success : function (data)
+		            {
+			            // 重新构建table
+			            alert (data);
+			            $ ('#datatable').dataTable ().fnClearTable (); // 将数据清除
+			            $ ('#datatable').dataTable ().fnAddData (packagingdatatabledata (data), true); // 数据必须是json对象或json对象数组
+			            
+		            },
+		            error : function ()
+		            {
+			            alert ('error');
+		            }
+		        });
+	        }
+	        
+	        getapplist ();
+	        
+	        $ ("#search").on ("click", function ()
+	        {
+		        $.ajax (
+		        {
+		            type : "post",
+		            url : "getapplist",
+		            data :
+		            {
+		                softwareName : $ ("#s_softwareName").val (),
+		                flatformId : $ ("#s_flatformId").val (),
+		                categoryLevel1 : $ ("#s_categoryLevel1").val (),
+		                categoryLevel2 : $ ("#s_categoryLevel2").val (),
+		                categoryLevel3 : $ ("#s_categoryLevel3").val ()
+		            },
+		            dataType : "json",
+		            success : function (data)
+		            {
+			            // 重新构建table
+			            $ ('#datatable').dataTable ().fnClearTable (); // 将数据清除
+			            $ ('#datatable').dataTable ().fnAddData (packagingdatatabledata (data), true); // 数据必须是json对象或json对象数组
+			            
+		            },
+		            error : function (data)
+		            {
+			            alert ("对不起，删除失败");
+		            }
+		        });
+	        });
+	        
+	        $ ("#datatable > tbody").on ("click", ".verbutton", function ()
+	        {
+		        $.ajax (
+		        {
+		            type : "GET",
+		            url : "check",
+		            data :
+		            {
+			            id : $ (this).attr ("appid")
+		            },
+		            dataType : "json",
+		            success : function (data)
+		            {
+			            if (data == "true")
+			            {
+				            reflashlist ();
+			            }
+			            else if (data == "false")
+			            {// 删除失败
+				            alert ("对不起，删除失败");
+				            
+			            }
+			            else if (data == "notexist")
+			            {
+				            alert ("对不起，app不存在");
+			            }
+		            },
+		            error : function (data)
+		            {
+			            alert ("对不起，删除失败");
+		            }
+		        });
+	        });
+	        
+	        // 把服务器返回的数据转成datatable须要的格式
+	        function packagingdatatabledata (data)
+	        {
+		        var htmlHead = "<button class=\"verbutton btn btn-round btn-default\" type=\"button\" appid=";
+		        var htmlFoot = ">审核</button>";
+		        var a = [];
+		        
+		        for (var i = 0; i < data.length; i++)
+		        {
+			        var tempObj = [
+			                "", "", "", "", "", "", "", ""
+			        ];
+			        tempObj[0] = data[i].softwareName;
+			        tempObj[1] = data[i].aPKName;
+			        tempObj[2] = data[i].softwareSize;
+			        tempObj[3] = data[i].flatformName;
+			        tempObj[4] = data[i].categoryLevel1Name + "&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;"
+			                + data[i].categoryLevel2Name + "&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;"
+			                + data[i].categoryLevel3Name;
+			        tempObj[5] = data[i].downloads;
+			        if (check (data[i].versionInfo))
+			        {
+				        tempObj[6] = data[i].versionInfo;
+			        }
+			        tempObj[7] = htmlHead + data[i].id + htmlFoot;
+			        
+			        a.push (tempObj);
+		        }
+		        return a;
+	        }
+	        
+	        function check (object)
+	        {
+		        if (object != null && object != "")
+		        {
+			        return true;
+		        }
+		        else
+		        {
+			        return false;
+		        }
+	        }
+	        
+	        TableManageButtons.init ();
+        });

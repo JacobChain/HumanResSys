@@ -1,0 +1,103 @@
+package cn.humanResSys.controller;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+
+import org.apache.ibatis.annotations.Param;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.alibaba.fastjson.JSON;
+
+import cn.humanResSys.pojo.User;
+import cn.humanResSys.service.user.UserServiceImpl;
+import cn.humanResSys.utils.PageSupport;
+
+@Controller
+public class UserController {
+	private Logger logger=Logger.getLogger(UserController.class);
+	
+	@Resource
+	private UserServiceImpl userServiceImpl;
+	
+	@RequestMapping("userlist")
+	public String userList(){
+		
+		return "userList";
+		
+	}
+	
+	@RequestMapping("douserlist")
+	public String douserlist(@RequestParam(value="username",required=false)String userName,
+			@RequestParam(value="userid",required=false)String userId,
+			@RequestParam(value="departmentid",required=false)String departmentId,
+			@RequestParam(value="pageIndex",required=false)String pageIndex,Model model){
+		logger.info("userName================"+userName+userId+departmentId+pageIndex);
+		int currentPageNo=1;
+		int pageSize=5;
+		long userid=0;
+		long departmentid=0; 
+		
+		if(userName==null){
+			userName="";
+		}
+		if(userId!=null&&userId!=""){
+			 userid = Long.parseLong(userId);
+		}
+		if(departmentId!=null&&departmentId!=""){
+			 departmentid = Long.parseLong(departmentId);
+		}
+		int totalCount = userServiceImpl.getTotalCount(userName, userid, departmentid);
+		logger.info("totalCount========================="+totalCount);
+		PageSupport page=new PageSupport();
+		page.setCurrentPageNo(currentPageNo);
+		page.setPageSize(pageSize);
+		page.setTotalCount(totalCount);
+		int totalPageCount = page.getTotalPageCount();
+		if(currentPageNo<0){
+			currentPageNo=1;
+		}else if(currentPageNo>totalPageCount) {
+			currentPageNo=totalPageCount;
+		}
+		List<User> userList = userServiceImpl.getUserList(userName, userid, departmentid, currentPageNo, pageSize);
+		String jsonString = JSON.toJSONString(userList);
+		
+		logger.info("jsonString========="+jsonString);
+		
+		model.addAttribute("userList",userList);
+		model.addAttribute("currentPageNo",currentPageNo);
+		model.addAttribute("pageIndex",pageIndex);
+		
+		return "userlist";
+		
+		
+	}
+	
+	
+	@RequestMapping(value="login.html")
+	public String logins(){
+		
+		return "login";
+		
+	}
+	
+	@RequestMapping(value="login.html",method=RequestMethod.POST)
+	public String login(@Param("usercode")String usercode,@Param("userpassword")String userpassword){
+		boolean flag = userServiceImpl.login(usercode, userpassword);
+		if(flag){
+			return"redirect:/frame.html";
+		}
+		
+		return "login";	
+	}
+	
+	
+	
+	
+}

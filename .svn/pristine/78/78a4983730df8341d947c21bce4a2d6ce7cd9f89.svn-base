@@ -1,0 +1,28 @@
+package cn.humanResSys.service.xinchou;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import cn.humanResSys.dao.xinchou.XinChouMapper;
+import cn.humanResSys.pojo.Salary;
+
+@Service("XinChouService")
+public class XinChouServiceImpl implements XinChouService {
+	@Resource
+	private XinChouMapper xinChoumapper;
+
+	@Override
+	public List<Salary> SearchXinChouList(String typeName, Date creationDate,
+			Integer currentPageNo, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return xinChoumapper.SearchXinChouList(typeName, creationDate, currentPageNo, pageSize);
+	}
+
+	
+	
+
+}

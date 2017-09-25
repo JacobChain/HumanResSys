@@ -1,0 +1,6 @@
+package cn.humanResSys.dao;
+
+public interface JobMapper {
+	
+
+}

@@ -1,0 +1,14 @@
+package cn.humanResSys.service.salary;
+
+import java.util.Date;
+
+import java.util.List;
+
+import cn.humanResSys.pojo.Salary;
+
+public interface SalaryService {
+	public List<Salary> SearchSalaryList(String typeName,
+			Date creationDate,
+			Integer currentPageNo,
+			Integer pageSize);
+}

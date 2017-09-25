@@ -1,0 +1,47 @@
+package cn.humanResSys.service.user;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import cn.humanResSys.dao.UserMapper;
+import cn.humanResSys.pojo.User;
+@Service("UserMapper")
+public class UserServiceImpl implements UserService {
+	@Resource
+	private UserMapper userMapper;
+	
+
+	@Override
+	public List<User> getUserList(String userName, long userId, long departmentId,int pageNo,int pageSize) {
+		// TODO Auto-generated method stub
+		
+		return userMapper.getUserList(userName, userId, departmentId,(pageNo-1)*pageSize,pageSize);
+	}
+
+
+	@Override
+	public int getAmountCount(String userName, long userId, long departmentId) {
+		// TODO Auto-generated method stub
+		return userMapper.getAmountCount(userName, userId, departmentId);
+	}
+
+
+	@Override
+	public boolean login(String userCode,String userPassword) {
+		boolean flag=false;
+		User user = userMapper.getUserByCode(userCode);
+		if(user!=null&&user.getUserpassword().equals(userPassword)){
+			flag=true;	
+		}
+		
+		return flag;
+	}
+
+
+
+	
+
+}

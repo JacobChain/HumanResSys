@@ -1,0 +1,40 @@
+package cn.humanResSys.controller;
+
+import java.util.List;
+
+
+
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import cn.humanResSys.pojo.Salary;
+import cn.humanResSys.service.salary.SalaryServiceImpl;
+
+
+@Controller
+public class SalaryController {
+	private Logger logger = Logger.getLogger(UserController.class);
+	
+	@Autowired
+	@Qualifier("salaryServiceImpl")
+	private SalaryServiceImpl salaryServiceImpl;
+	
+	@RequestMapping(value="/salary.html")
+	public String salary(){
+		logger.debug("UserController welcome SMBMS==================");
+		return "salary";
+	};
+	
+	@RequestMapping("salaryList")
+	public String salarylist(Model model){
+		List<Salary> salary=salaryServiceImpl.SearchSalaryList();
+		model.addAttribute("salary",salary);
+		
+		return "salaryList";
+	}
+}

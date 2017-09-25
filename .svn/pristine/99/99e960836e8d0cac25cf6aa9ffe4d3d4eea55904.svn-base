@@ -1,0 +1,20 @@
+package cn.humanResSys.controller;
+
+import javax.annotation.Resource;
+
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import cn.humanResSys.service.salary.SalaryServiceImpl;
+
+@Controller
+public class SalaryController {
+	@Resource
+	private SalaryServiceImpl salaryServiceImpl;
+	
+	@RequestMapping("salaryList")
+	public String salarylist(){
+		return "salaryList";
+	}
+}

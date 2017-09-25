@@ -1,0 +1,11 @@
+package cn.humanResSys.dao;
+
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import cn.humanResSys.pojo.Training;
+public interface TrainMapper {
+	public List<Training> getlistTrain();
+
+}

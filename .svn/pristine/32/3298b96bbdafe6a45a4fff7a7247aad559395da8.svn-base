@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.humanResSys.dao.salary.SalaryMapper">
+
+<select id="SearchSalaryList"  resultMap="Salary">
+	SELECT salary.`salaryCode`,salary.`salaryName`,dictionary.`typeName`,salary.`creationDate` 
+	FROM salary INNER JOIN dictionary ON salary.`creationDate`=dictionary.`creationDate`
+	
+</select>
+
+
+
+
+
+</mapper>

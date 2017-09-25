@@ -1,0 +1,23 @@
+package cn.humanResSys.service.user;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import cn.humanResSys.dao.UserMapper;
+import cn.humanResSys.pojo.User;
+@Service("UserMapper")
+public class UserServiceImpl implements UserService {
+	@Resource
+	private UserMapper userMapper;
+	
+
+	@Override
+	public List<User> getUserList(String userName, int userId, int departmentId,int pageNo) {
+		// TODO Auto-generated method stub
+		return userMapper.getUserList(userName, userId, departmentId,pageNo);
+	}
+
+}

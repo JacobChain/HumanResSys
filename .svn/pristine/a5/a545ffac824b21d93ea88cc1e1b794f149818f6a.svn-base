@@ -1,0 +1,19 @@
+package cn.humanResSys.controller;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import cn.humanResSys.service.xinchou.XinChouServiceImpl;
+
+@Controller
+public class XinChouController {
+	@Resource
+	private XinChouServiceImpl xinChouServiceImpl;
+	
+	@RequestMapping("xinChouList")
+	public String xinChoulist(){
+		return "xinChouList";
+	}
+}

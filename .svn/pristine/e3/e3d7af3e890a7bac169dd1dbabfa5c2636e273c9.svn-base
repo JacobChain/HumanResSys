@@ -1,0 +1,39 @@
+package cn.humanResSys.controller;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import cn.humanResSys.service.user.UserServiceImpl;
+
+@Controller
+public class UserController {
+	@Resource
+	private UserServiceImpl userServiceImpl;
+	
+	@RequestMapping("userlist")
+	public String userList(){
+		
+		return "userList";
+		
+	}
+	
+	@RequestMapping("douserlist")
+	public String douserlist(@RequestParam(value="userName",required=false)String userName,
+			@RequestParam(value="userId",required=false)String userId,
+			@RequestParam(value="departmentId",required=false)String departmentId,
+			@RequestParam(value="pageNo",required=false)String pageNo){
+		
+		
+		
+		return null;
+		
+		
+	}
+	
+	
+	
+	
+}

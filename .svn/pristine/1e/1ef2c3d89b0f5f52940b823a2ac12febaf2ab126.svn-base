@@ -1,0 +1,9 @@
+package cn.humanResSys.service.user;
+
+import java.util.List;
+
+import cn.humanResSys.pojo.User;
+
+public interface UserService {
+	public List<User> getUserList(String userName,int userId,int departmentId,int pageNo);
+}

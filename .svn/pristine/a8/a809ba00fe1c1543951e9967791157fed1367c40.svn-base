@@ -1,0 +1,19 @@
+package cn.humanResSys.dao.xinchou;
+
+import java.util.Date;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import cn.humanResSys.pojo.Salary;
+
+public interface XinChouMapper {
+	//查询数据库信息
+	public List<Salary> SearchXinChouList(@Param("typeName")String typeName,
+			@Param("creationDate")Date creationDate,
+			@Param("from")Integer currentPageNo,
+			@Param("pageSize")Integer pageSize);
+	//修改信息
+	
+	
+}

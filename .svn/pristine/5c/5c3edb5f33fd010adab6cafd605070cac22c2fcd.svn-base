@@ -1,0 +1,17 @@
+package cn.humanResSys.dao.salary;
+
+import java.util.Date;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import cn.humanResSys.pojo.Salary;
+
+public interface SalaryMapper {
+	//查询指定信息
+	public List<Salary> SearchSalaryList(@Param("typeName")String typeName,
+			@Param("creationDate")Date creationDate,
+			@Param("from")Integer currentPageNo,
+			@Param("pageSize")Integer pageSize);
+	
+}
