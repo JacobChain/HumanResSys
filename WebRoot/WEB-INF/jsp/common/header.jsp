@@ -19,8 +19,8 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta http-equiv="Cache-Control" content="no-siteapp">
-<link rel="Bookmark" href="/favicon.ico">
-<link rel="Shortcut Icon" href="/favicon.ico">
+<link rel="Bookmark" href="${pageContext.request.contextPath }/static/icon/HR.ico">
+<link rel="Shortcut Icon" href="${pageContext.request.contextPath }/static/icon/HR.ico">
 <!--[if lt IE 9]>
 <script type="text/javascript" src="${pageContext.request.contextPath }/lib/html5shiv.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/lib/respond.min.js"></script>
@@ -55,7 +55,7 @@
 	<div class="navbar navbar-fixed-top">
 		<div class="container-fluid cl">
 			<a class="logo navbar-logo f-l mr-10 hidden-xs"
-				href="/aboutHui.shtml">LOGO放置处</a> <a
+				href="/aboutHui.shtml"><img alt="HR.ico" src="${pageContext.request.contextPath }/static/image/i-HR.png" width="40px"></a> <a
 				class="logo navbar-logo-m f-l mr-10 visible-xs"
 				href="/aboutHui.shtml">人力资源管理系统</a> <span
 				class="logo navbar-slogan f-l mr-10 hidden-xs">人力资源管理系统</span> <a
